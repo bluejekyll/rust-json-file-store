@@ -224,12 +224,31 @@ impl Store {
         Ok(s)
     }
 
+    /// Saves the object to the DB generating a new UUID.
+    ///
+    /// # Arguments
+    ///
+    /// * `obj` - The object to save to the DB
+    ///
+    /// # Returns
+    ///
+    /// The generated UUID for the object
     pub fn save<T>(&self, obj: &T) -> Result<String>
         where for<'de> T: Serialize + Deserialize<'de>
     {
         self.save_with_id(obj, &Uuid::new_v4().to_string())
     }
 
+    /// Saves the object to the DB with the associated id as the key.
+    ///
+    /// # Arguments
+    ///
+    /// * `obj` - The object to save to the DB
+    /// * `id` - The key with which to save the object to the DB
+    ///
+    /// # Returns
+    ///
+    /// The generated UUID for the object
     pub fn save_with_id<T>(&self, obj: &T, id: &str) -> Result<String>
         where for<'de> T: Serialize + Deserialize<'de>
     {
